@@ -178,6 +178,8 @@ Bean:
 
 		配置全局默认初始化、销毁方法：
 			在配置文件中beans标签内增加属性 defatlt-init-method，default-destroy-method，值为需要指定的方法名称
+		默认初始化、销毁方法可以缺省
+		制订了初始化、销毁方法必须实现该方法，否则会抛出异常
 
 	Bean的自动装配
 	Resource & ResourceLoader	IoC在加载资源配置文件时用到的类

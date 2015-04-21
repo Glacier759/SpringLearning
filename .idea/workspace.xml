@@ -97,23 +97,32 @@
       <file leaf-file-name="BeanLifeCycle.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/glacier/spring/lifecycle/BeanLifeCycle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="44" max-vertical-offset="432">
-              <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="458" max-vertical-offset="810">
+              <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
               <folding>
-                <element signature="e#263#264#0" expanded="true" />
-                <element signature="e#313#314#0" expanded="true" />
-                <element signature="e#339#340#0" expanded="true" />
-                <element signature="e#388#389#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#430#431#0" expanded="true" />
+                <element signature="e#486#487#0" expanded="true" />
+                <element signature="e#522#523#0" expanded="true" />
+                <element signature="e#581#582#0" expanded="true" />
+                <element signature="e#641#642#0" expanded="true" />
+                <element signature="e#692#693#0" expanded="true" />
+                <element signature="e#763#764#0" expanded="true" />
+                <element signature="e#826#827#0" expanded="true" />
+                <element signature="e#853#854#0" expanded="true" />
+                <element signature="e#903#904#0" expanded="true" />
+                <element signature="e#929#930#0" expanded="true" />
+                <element signature="e#978#979#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestBeanLifeCycle.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="TestBeanLifeCycle.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/glacier/spring/test/lifecycle/TestBeanLifeCycle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.77868855" vertical-offset="134" max-vertical-offset="522">
-              <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="152" max-vertical-offset="522">
+              <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#420#421#0" expanded="true" />
@@ -125,11 +134,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="spring-lifecycle.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="spring-lifecycle.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/spring-lifecycle.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
-              <caret line="5" column="120" selection-start-line="5" selection-start-column="120" selection-end-line="5" selection-end-column="120" />
+            <state vertical-scroll-proportion="0.6233766" vertical-offset="0" max-vertical-offset="270">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -171,9 +180,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/glacier/spring/bean/BeanScope.java" />
         <option value="$PROJECT_DIR$/src/main/resources/spring-beanscope.xml" />
         <option value="$PROJECT_DIR$/src/test/java/com/glacier/spring/test/bean/TestBeanScope.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/spring-lifecycle.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/glacier/spring/lifecycle/BeanLifeCycle.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/glacier/spring/test/lifecycle/TestBeanLifeCycle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/glacier/spring/lifecycle/BeanLifeCycle.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/spring-lifecycle.xml" />
       </list>
     </option>
   </component>
@@ -799,12 +808,12 @@
       <created>1428325093971</created>
       <updated>1428325093971</updated>
       <workItem from="1428325098993" duration="4607000" />
-      <workItem from="1429599768307" duration="7914000" />
+      <workItem from="1429599768307" duration="9023000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12521000" />
+    <option name="totallyTimeSpent" value="13630000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="1368" height="742" extended-state="6" />
@@ -1026,14 +1035,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/glacier/spring/ioc/injection/service/InjectionService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
-          <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/glacier/spring/bean/BeanScope.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="8" max-vertical-offset="360">
@@ -1057,31 +1058,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-lifecycle.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
-          <caret line="5" column="120" selection-start-line="5" selection-start-column="120" selection-end-line="5" selection-end-column="120" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/glacier/spring/lifecycle/BeanLifeCycle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="44" max-vertical-offset="432">
-          <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
-          <folding>
-            <element signature="e#263#264#0" expanded="true" />
-            <element signature="e#313#314#0" expanded="true" />
-            <element signature="e#339#340#0" expanded="true" />
-            <element signature="e#388#389#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/glacier/spring/test/lifecycle/TestBeanLifeCycle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.77868855" vertical-offset="134" max-vertical-offset="522">
-          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="152" max-vertical-offset="522">
+          <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#420#421#0" expanded="true" />
@@ -1089,6 +1069,44 @@
             <element signature="e#512#513#0" expanded="true" />
             <element signature="e#588#589#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/glacier/spring/lifecycle/BeanLifeCycle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="458" max-vertical-offset="810">
+          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#430#431#0" expanded="true" />
+            <element signature="e#486#487#0" expanded="true" />
+            <element signature="e#522#523#0" expanded="true" />
+            <element signature="e#581#582#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
+            <element signature="e#692#693#0" expanded="true" />
+            <element signature="e#763#764#0" expanded="true" />
+            <element signature="e#826#827#0" expanded="true" />
+            <element signature="e#853#854#0" expanded="true" />
+            <element signature="e#903#904#0" expanded="true" />
+            <element signature="e#929#930#0" expanded="true" />
+            <element signature="e#978#979#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/glacier/spring/ioc/injection/service/InjectionService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
+          <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-lifecycle.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6233766" vertical-offset="0" max-vertical-offset="270">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
