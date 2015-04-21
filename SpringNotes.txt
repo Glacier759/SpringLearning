@@ -1,0 +1,183 @@
+1. 什么是JavaBean？
+	JavaBean是一种JAVA语言写成的可重用组建。
+	为写成JavaBean，类必须是具体的公共的，并且具有无参数的构造器。
+	用户可以使用JavaBean将功能、处理、值、数据库访问和其他任何可以用Java代码创造的对象进行打包，并且其他的开发者可以通过内部的JSP页面、Servlet、其他JavaBean、Applet程序或者应用来使用这些对象。
+	JavaBean可分为两种：
+		一种是由用户界面（UI，User Interface）的JavaBean；
+		一种是没有用户界面的，主要负责处理事务（如数据运算，操纵数据库）的JavaBean。JSP通常访问的是后一种JavaBean。
+	从基本上说，JavaBean可以看成是一个黑盒子，即只需要知道其功能而不必管其内部结构的软件设备。黑盒子只介绍和定义其外部特征和与其他部分的接口，如按钮、窗口、颜色、形状、句柄等。通过将系统看成使用黑盒子关联起来的通讯网络，我们可以忽略黑盒子内部的系统细节，从而有效地控制系统的整体性能。
+
+	一个JavaBean由3部分组成：
+		a. 属性（properties）
+			JavaBean提供了高层次的属性概念，属性在JavaBean中不只是传统的面向对象的概念里的属性，它同时还得到了属性读取和属性写入的API支持。属性值可以通过调用适当的Bean方法进行。比如，可能Bean有一个名字属性，这个属性的值可能需要调用String getName()方法读取，而写入属性值可能需要调用void setName(String str)的方法。
+			每个JavaBean属性通常都应该遵循简单的方法命名规则，这样应用程序构造器工具和最终用户才能找到JavaBean提供的属性，然后查询或修改属性值，对Bean进行操作。JavaBean还可以对属性值的改变做出及时的反应。比如显示一个当前时间的JavaBean，如果改变时钟的时区属性，则时钟会立即重画，显示当前指定时区的时间。
+		b. 方法（method）
+			JavaBean中的方法就是通常的Java方法，它可以从其他组件或在脚本环境中调用。默认情况下，所有Bean的公有方法都可以被外部调用，但Bean一般只会引出其公有方法的一个子集。
+			由于JavaBean本身是Java对象，调用这个对象的方法是与其交互作用的唯一途径。JavaBean严格遵守面向对象的类设计逻辑，不让外部世界访问其任何字段（没有public字段）。这样，方法调用是接触Bean的唯一途径。
+			但是和普通类不同的是，对有些Bean来说，采用调用实例方法的低级机制并不是操作和使用Bean的主要途径。公开Bean方法在Bean操作中降为辅助地位，因为两个高级Bean特性--属性和事件是与Bean交互作用的更好方式。
+			因此Bean可以提供要让客户使用的public方法，但应当认识到，Bean设计人员希望看到绝大部分Bean的功能反映在属性和事件中，而不是在人工调用和各个方法中。
+		c. 事件（event）
+			Bean与其他软件组织交流信息的交流信息的主要方式是发送和接受事件。我们可以将Bean的事件支持功能看作是集成电路中的输入输出引脚：工程师将引脚连接在一起组成系统，让组件进行通讯。有些引脚用于输入，有些引脚用于输出，相当于事件模型中的发送事件和接收事件。
+			事件为JavaBean组件提供了一种发送通知给其他组件的方法。在AWT事件模型中，一个事件源可以注册事件监听器对象。当事件源检测到发生了某种事件时，它将调用事件监听器对象中的一个适当的事件处理方法来处理这个事件。
+			由此可见，JavaBean确实也是普通的Java对象，只不过它遵循了一些特别的约定而已。
+
+		JavaBean的范围Scope是一个具有生命时间的变量。
+		对话范围：
+			对话范围的JavaBean主要应用于跨多个页面和时间段：例如填充用户信息。添加信息并且接受回馈，保存用户最近执行页面的轨迹。对话范围JavaBean保留一些和用户对话ID相关的信息。这些信息来自临时的对话cookie，并在当用户关闭浏览器时，这个cookie将从客户端和服务器删除。
+		请求范围：
+			页面和请求范围的JavaBean优势类似表单的Bean，这是因为它们大都用于处理表单。表单需要很长的时间来处理用户的输入，通常情况下用于页面接受HTTP/POST或者GET请求。另外页面和请求范围的Bean可以用于减少大型站点服务器上的负载，如果使用对话Bean，耽搁的处理就可能会消耗掉很多资源。
+		应用范围：
+			应用范围通常应用于服务器的部件，例如JDBC连接池、应用监视、用户计数和其他参与用户行为的类。
+
+		JavaBean是一种Java类，通过封装属性和方法成为具有某种功能或者处理某个业务的对象，简称Bean。由于JavaBean是基于Java语言的，因此JavaBean不依赖平台，具有以下特点：
+			a. 可以实现代码的重复利用
+			b. 易编写、易维护、易使用
+			c. 可以在任何安装了Java运行环境的平台上使用，而不需要重新编译。
+		编写JavaBean就是编写一个Java的类，所以你只要会写类就能编写一个Bean，这个类创建的一个对象称作一个Bean。为了能让使用这个Bean的应用程序构建工具（比如JSP引擎）知道这个Bean的属性和方法，只需在类的方法命名上遵守以下规则：
+			a. 如果类的成员变量的名字是xxx，那么为了更改获取成员变量的值，及更改获取属性，在类中可以使用两个方法：
+				getXxx()，用来获取属性xxx
+				setXxx(), 用来修改属性xxx
+			b. 对于boolean类型的成员变量，即布尔逻辑类型的属性，允许使用"is"代码上面的"get"
+			c. 类中访问属性的方法都必须是public的，一般属性是private的
+			d. 类中如果有构造方法，那么这个构造方法也是public的并且是无参数的
+
+		JavaBean是公共Java类，但是为了编辑工具识别，需要满足至少三个条件：
+			a. 有一个public默认构造器（例如无参构造器）
+			b. 属性使用public的get、set方法访问，也就是说设置成private，同时get，set方法与属性名的大小也需要对应。例如name的get方法就要写成public String getName(){}, N大写
+			c. 需要序列化。这个是框架，工具跨平台反应状态必须的
+
+		EJB在企业开发中，需要可伸缩的性能和事务、安全机制，这样能保证企业系统平滑发展，而不是发展到一种规模重新更换一套软件系统。然后又提高了协议要求，就出现了Enterprise Bean。 EJB在JavaBean基础上又提出了一些要求。
+
+		POJO（Plain Old Java Object）相对于EJB而言就是普通的JavaBean，区别在于先判断是否满足JavaBean的条件，然后如果再实现一些要求，满足EJB条件就是EJB，否则就是POJO
+		使用POJO名称是为了避免和EJB混淆起来，而且简称比较直接，其中有一些属性及其getter、setter方法的类，没有业务逻辑，有时可以作为VO（Value-Object）或DTO（Data Transform Object）来使用，当然，如果你有一个简单的运算属性也是可以的，但不允许有业务方法，也不能携带有connection之类的方法。
+		POJO实质上可以理解为简单的实体类，顾名思义POJO类的作用是方便程序员使用数据库中的数据表，对于广大的程序员，可以很方便的将POJO类当做对象来进行使用，当然也是可以方便调用其get、set方法。POJO类也给我们在Structs框架中的配置带来了很大的方便。
+
+2. POJO与JavaBean的区别
+	POJO和JavaBean是我们常见的两个关键字，一般容易混淆，POJO全程是Plain Ordinary Java Object / Pure Old Java Object，中文可以翻译成：普通的Java类，具有一部分getter/setter方法的那种类就可以称作POJO，但是JavaBean则比POJO复杂很多，JavaBean是可复用的组件，对JavaBean并没有严格的规范，理论上讲，任何一个Java类都可以是一个Bean。但通常情况下，由于JavaBean是被容器所创建的，所以JavaBean应具有一个无参的构造器，另外，通常JavaBean还要实现Serializable接口用于实现Bean的持久性。JavaBean是不能被跨进程访问的。JavaBean是一种组件技术，就好像你做了一个扳子，而这个扳子会在很多地方被拿去用，这个扳子也提供多种功能（你可以拿这个扳子扳、锤、撬等等），而这个扳子就是一个组件。一般在web应用程序中建立一个数据库的映射对象时，我们只能称它为POJO。POJO这个名字用来强调它是一个普通Java对象，而不是一个特殊的对象，其主要用来指代那些没有遵从特定的Java对象模型、约定或框架（如EJB）的Java对象。理想的讲，一个POJO是一个不受任何限制的Java对象（除了Java语言规范）
+	POJO是这样的一种"纯粹的"JavaBean，在它里面除了JavaBean规范的方法和属性没有别的东西，即private属性以及对这个属性方法的public的get和set方法。我们会发现这样的JavaBean很"单纯"，它只能装载数据，作为数据存储的载体，而不具有业务逻辑处理的能力。即POJO是一个简单的普通的Java对象，它不包含业务逻辑或持久逻辑等，但不是JavaBean、EntityBean等，不具有任何特殊角色和不继承或不实现任何其他Java框架的类或接口。
+
+
+3. 什么是EJB？
+	通俗来讲：EJB就是"把你编写的软件中那些需要执行制定的任务的类，不放到客户端软件上，而是给他打成包放到一个服务器上"。EJB就是将那些类放到一个服务器上，用C/S形式的软件客户端对服务器上的类进行调用。
+	EJB主要有三种类型：
+		a. SessionBean：会话Bean将特定用户的数据存储为一个单一的绘画。它可以是状态或无状态。它占用更少资源，相比于实体Bean。只要终止用户会话，会话Bean被销毁。
+		b. EntityBean：实体Bean代表持久性数据存储。可将用户数据保存到数据库中，通过实体Bean，后来就可以检索从数据库中的实体Bean。
+		c. MessageDrivenBean：使用消息驱动Bean上下文中的JMS（Java消息服务）。消息驱动Bean可以从外部实体消耗JMS消息，并采取相应的动作。
+
+4. 什么是依赖注入？
+	依赖注入已经演变成一项复杂编程技巧或设计模式理念。
+	任何一个有实际意义的应用都是由两个或者更多的类组成，这些类相互之间进行协作来完成特定的业务逻辑。通常，每个对象负责管理与自己相互协作的对象的引用，这将会导致高度耦合和难以测试的代码。
+	耦合具有两面性（two-headed beast）。一方面，紧密耦合的代码难以测试，难以复用，难以理解，并且典型地表现出“打地鼠”式的bug特性（修复一个bug，导致出现一个新的或者甚至更多的bug）。另一方面，一定程度的耦合又是必须的——完全没有耦合的代码什么也做不了。
+	为了完成有实际意义的功能，不同的类必须以适当的方式进行交互。总而言之，耦合是必须的，但应当小心谨慎的管理它。
+	另一种方式，通过依赖注入（DI），对象的依赖关系将由负责协调系统中各个对象的第三方组件在创建对象时设定。对象无需自行创建或管理它们的依赖关系——依赖关系将被自动注入到需要它们的对象中去。
+	依赖注入的几种方式：
+		a. 构造器注入：在构造时把任务作为构造器参数传入，利用继承类或实现接口中方法的覆盖来实现执行多种任务；
+
+5. 什么是IOC？
+	IOC：控制反转，控制权的转移，应用程序本身不负责依赖对象的创建和维护，而是由外部容器负责创建和维护
+		当我们需要一个对象的时候，我们不是在自己的程序中new一个，我们向外部程序申请一个拿来用。例如找房子住，我们本身不进行房子的建造，而是找开发商买来它们已经建好的房子来住。
+		哪些方面的控制被反转了呢？——获得依赖对象的过程被反转了。控制被反转之后，获得依赖对象的过程由自身管理变味了由IOC容器主动注入
+		IOC的一种实现方法：注入（DI Dependency Injection），所谓依赖注入，就是由IOC容器在运行期间，动态地将某种依赖关系注入到对象之中。
+			找IOC容器
+			容器创建返回对象
+			使用对象
+
+	在IOC容器中，所有的对象都被称之为Bean，Spring对于Bean的使用有两种方式：一种是通过XML的配置，一种通过注解。
+	<bean id="oneInterface" class=com.glacier.spring.ioc.interfaces.OneInterfaceImpl""></bean>
+
+6. 单元测试
+	导入JUnit
+	创建UnitTestBase类，完成对Spring配置文件的加载、销毁
+	所有的单元测试类都继承自UnitTestBase，通过它的getBean方法获取想要得到的对象
+	子类（具体执行单元测试的类）加注解：@RunWith(BlockJUnit4ClassRunner.class)
+	单元测试方法加注解：@Test
+	右键选择要执行的单元测试方法执行或者执行一个类的全部单元测试方法
+
+7. Bean容器初始化
+	基础：两个包
+		org.springfameword.beans
+		org.springfameword.context
+		BeanFactory提供配置结构的基本功能，加载并初始化Bean
+		ApplicationContext保存了Bean对象并在Spring中被广泛使用
+	方式，ApplicationContext（初始化有几种方式）
+		本地文件	（指定到具体到磁盘目录/xxx/xxx/xxx/A.xml）
+			FileSystemXmlApplicationContext context = new FileSystemXmlApplicationContext("./appcontext.xml");
+		Classpath	（具体到工程中的一个相对位置）
+			ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-content.xml");
+		Web应用中依赖servlet或Listener
+			<listener>
+				<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+			</listener>
+			<servlet>
+				<servlet-name>context</servlet-name>
+				<servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
+				<load-on-startup>1</load-on-startup>
+			</servlet>
+
+8. Spring注入：
+	Spring注入是指在启动Spring容器ioc加载Bean配置的时候，完成对变量的赋值行为
+		在ioc容器初始化A的时候就把A的成员变量B进行赋值
+	常用的两种注入方式
+		设值注入(通过set方法进行注入)
+			<beans xmlns=".....">
+				<bean id="injectionService" class="com.glacier.spring.ioc.injection.service.InjectionServiceImpl">
+					<property name="injectionDAO" ref="injectionDAO" />	
+					//表示属性，在injectionService这个类里会有一个名叫injectionDAO的成员变量 ref表示引用，里面给对方的id
+				</bean>
+				<bean id="injectionDAO" class="com.glacier.spring.ioc.injection.dao.InjectionDAOImpl"></bean>
+			</beans>
+		构造注入（通过构造器传参）
+			<beans xmlns=".....">
+				<bean id="injectionService" class="com.glacier.spring.ioc.injection.service.InjectionServiceImpl">
+					<constructor-arg name="injectionDAO" ref="injectionDAO" />	
+					//表示构造器参数，在injectionService这个类里会有一个名叫injectionDAO的成员变量 ref表示引用，里面给对方的id
+				</bean>
+				<bean id="injectionDAO" class="com.glacier.spring.ioc.injection.dao.InjectionDAOImpl"></bean>
+			</beans>
+
+Bean:
+	Bean配置项
+		Id	在整个ioc容器中对bean的唯一标示
+		Class	具体要实例化的哪一个类（必须）
+		Scope	指范围，作用域
+		Constructor arguments	构造器的参数
+		Properties				属性
+		Autowiring mode			自动装配的模式
+		lazy-initialization mode	懒加载模式
+		Initialization/destruction method	初始化和销毁的方法
+	Bean的作用域
+		singleton：单例，指一个Bean容器中只存在一份（默认）
+		prototype：每次请求（每次使用）创建新的实例，当每一次向ioc容器请求得到一个对象的时候都是会创建一个新的实例，destroy方式不生效
+		request：每次http请求创建一个实例且仅在当前request内有效，在一个request内在任何时间任何地方去ioc容器中申请这个实例都是同一个实例
+		session：同上，每次http请求创建，当前session内有效
+		global session：基于portlet的web中有效（protlet定义了global session），如果是在web中，同session
+	Bean的生命周期
+		定义
+			配置文件中配置的bean id与class
+		初始化：加载Bean配置文件并初始化生成Bean的实例
+			实现org.springframework.beans.factory.InitializingBean接口，覆盖afterPropertiseSet方法
+			public class ExampleInitializingBean implements InitializingBean {
+				@Override
+				public void afterPropertiesSet() throws Exception {
+					//do something
+				}
+			}
+			配置init-method
+			<bean id="exampleInitBean" class="examples.ExampleBean" init-method="init" />	指定初始化调用的初始化方法
+			public class ExampleBean {
+				public void init() {
+					//do some initialization work
+				}
+			}
+		使用
+			从Bean容器中取出实例并使用
+		销毁:在Bean容器结束的时候销毁
+			实现org.springframework.beans.factory.DisposableBean接口，覆盖destory方法
+			配置destroy-method
+			【与初始化类似】
+
+		配置全局默认初始化、销毁方法：
+			在配置文件中beans标签内增加属性 defatlt-init-method，default-destroy-method，值为需要指定的方法名称
+
+	Bean的自动装配
+	Resource & ResourceLoader	IoC在加载资源配置文件时用到的类
