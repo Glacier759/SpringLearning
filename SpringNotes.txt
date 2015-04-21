@@ -183,3 +183,47 @@ Bean:
 
 	Bean的自动装配
 	Resource & ResourceLoader	IoC在加载资源配置文件时用到的类
+		针对于资源文件的统一入口
+		UrlResource: URL对应的资源，根据一个URL地址即可构建
+		ClassPathResource：获取类路径下的资源文件
+		FileSystemResource：获取文件系统里面的资源
+		ServletContextResource：ServletContext封装的资源，用于访问ServletContext环境下的资源
+		InputStreamReader：针对于输入流封装的资源
+		ByteArrayResource：针对字节数组封装的资源
+	ResourceLoader	对Resource进行加载的类，所有的ApplicationContext都实现了该接口，所有的ApplicationContext都可以用来获取Resource的实例
+		public interface ResourceLoader{
+			Resource getResource(String location);
+		}
+		Resource template = ctx.getResource("some/resource/path/myTemplate.txt");
+		Resource template = ctx.getResource("classpath:some/resource/path/myTemplate.txt");
+		Resource template = ctx.getResource("file:/some/resource/path/myTemplate.txt");
+
+Aware
+	Spring中提供了一些以Aware结尾的接口，实现了Aware接口的Bean在被初始化之后，可以获取相应资源
+	通过Aware接口，可以对Spring相应资源进行操作（一定要慎重）
+	为对Spring进行简单的扩展提供了方便的入口
+
+	Spring中提供的以Aware为结尾的相关接口：
+	ApplicationContextAware：向实现了这个接口的Bean提供ApplicationContext的上下文信息
+	BeanNameAware：提供一个关于BeanName定义的内容
+	ApplicationEventPublisherAware：时间发布
+	BeanClassLoaderAware
+	BeanFactoryAware
+	BeanNameAware
+	BootstrapContextAware
+	LoadTimeWeaverAware
+	MessageSourceAware
+	NotificationPublisherAware
+	PortletConfigAware
+	PortletContextAware
+	ResourceLoaderAware
+	ServletConfigAware
+	ServletContextAware
+
+
+Bean的自动装配（Autowiring）
+	依赖注入有构造器注入和set注入，都需要在xml中声明，现在了解Bean的自动装配，使用这种方式实现Bean的注入
+	No：不错任何操作
+	byname：根据属性名自动装配。此选项将检查IoC容器并根据饼子查找与属性完全一致的Bean，并将其与属性自动装配。
+	byType：如果容器中存在一个与指定属性类型相同的Bean，那么将与该属性总动装配；如果存在多个该类型Bean，那么抛出异常，并指出不能使用byType方式进行自动装配；如果没有找到相匹配的Bean，则什么是都不发生
+	Constructor：与byType方式类似，不同支出在于它应用与构造器参数。如果容器中没有找到与构造器参数类型一致的Bean，那么抛出异常
