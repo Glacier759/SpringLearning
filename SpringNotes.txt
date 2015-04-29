@@ -372,6 +372,16 @@ Schema-based AOP	基于文件配置的
 		</aop:aspect>
 	</aop:connfig>
 
+Advice
+	Before advice
+	<aop:aspect id="beforeExample ref="aBean"">
+		<aop:before pointcut-ref="dataAccessOperation" method="doAccessCheck" />
+	</aop:aspect>
+
+	<aop:aspect id="beforeExample ref="aBean"">
+		<aop:before pointcut="execution(* com.xyz.myapp.dao..(..))" method="doAccessCheck" />
+	</aop:aspect>
+
 Spring AOP API
 AspectJ		独立的AOP实现方式
 

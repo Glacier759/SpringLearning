@@ -6,4 +6,9 @@ package com.glacier.spring.aop.schema.advice.biz;
  * Company: Class 1204 of Computer Science and Technology
  */
 public class AspectBiz {
+
+    public void biz() {
+        System.out.println("AspectBiz biz. ");
+    }
+
 }

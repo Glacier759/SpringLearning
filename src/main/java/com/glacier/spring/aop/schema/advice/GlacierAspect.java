@@ -6,4 +6,9 @@ package com.glacier.spring.aop.schema.advice;
  * Company: Class 1204 of Computer Science and Technology
  */
 public class GlacierAspect {
+
+    public void before() {
+        System.out.println("GlacierAspect before.");
+    }
+
 }
