@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="glacierAspect" class="com.glacier.spring.aop.schema.advice.GlacierAspect"></bean>
+
+    <bean id="aspectBiz" class="com.glacier.spring.aop.schema.advice.biz.AspectBiz"></bean>
+
+    <aop:config>
+        <aop:aspect id="glacierAspectAOP" ref="glacierAspect">
+            <aop:pointcut id="glacierPointcut" expression="execution(com.glacier.spring.aop.schema.advice.biz.*Biz.*(..))" />
+        </aop:aspect>
+    </aop:config>
+
+</beans>

@@ -227,3 +227,151 @@ Bean的自动装配（Autowiring）
 	byname：根据属性名自动装配。此选项将检查IoC容器并根据饼子查找与属性完全一致的Bean，并将其与属性自动装配。
 	byType：如果容器中存在一个与指定属性类型相同的Bean，那么将与该属性总动装配；如果存在多个该类型Bean，那么抛出异常，并指出不能使用byType方式进行自动装配；如果没有找到相匹配的Bean，则什么是都不发生
 	Constructor：与byType方式类似，不同支出在于它应用与构造器参数。如果容器中没有找到与构造器参数类型一致的Bean，那么抛出异常
+
+
+Bean管理的注解实现及例子
+	Classpath扫描与组件管理
+		从Spring3.0开始，Spring JavaConfig项目提供了很多特性，包括使用java而不是XML定义bean，比如@Configuration, @Bean, @Import, @DependsOn
+		@Component是一个通用注解，可用于任何bean
+		@Repository, @Service, @Controller是更有针对性的注解
+			@Repository通常用于注解DAO类，即持久层
+			@Service通常用于注解Service类，即服务层
+			@Controller通常用于Controller类，即控制层（MVC）
+		元注解（Meta-annotations）//注解的注解
+			许多Spring提供的注解可以作为自己的代码，即“元数据注解”，元注解是一个简单的注解，可以应用到另一个注解
+				@Target((ElementType.TYPE))
+				@Retention(RetentionPolicy.RUNTIME)
+				@Documented
+				@Component	//Spring will see this and treat @Service in the same way as @Component
+				public @interface Service {
+					// ...
+				}
+			除了value(),元注解还可以有其他的属性，允许定制
+				@Target((ELementType.TYPE))
+				@Retention(RetentionPolicy.RUNTIME)
+				@Documented
+				@Scope("session")
+				public @interface SessionScope{
+					ScopeProxyMode proxyMode() default ScopedProxyMode.DEFAULT;
+				}
+
+	类的自动检测与Bean的注册
+		Spring可以自动检测类并注册Bean到ApplicationContext中
+			@Service
+			public class SimpleMovieLister {
+				private MovieFinder movieFinder;
+
+				@Autowired
+					public SimpleMovieLister(MovieFinder movieFinder) {
+						this.movieFinder = movieFinder;
+					}
+			}
+			@Repository
+			public class JpaMovieFinder implements MovieFinder {
+				//implementation elided for clarity
+			}
+
+	<context:annotation-config />
+		通过在语句XML的Spring配置如下标签（请注意包含上下文命名空间）
+		<context:annotation-config />仅会查找在同一个applicationContext中的bean注解
+		<beans xmls="...">
+			<context:annotation-config />	扫描基于成员变量的注解
+		</beans>
+		为了能够检测这些类并注册相应的Bean，需要下面内容
+			<context:component-scan base-package="org.example" />	完成组件扫描，扫描基于类的注解，扫描base-package下的所有类，将扫描到的结果注册到ApplicationContext中
+		<context:component-scan>包含<context:annotation-config>，通常在使用前者后，不再使用后者
+		AutowiredAnnotationBeanPostProcessor和CommonAnnotationBeanPosyProcessor也会被包含进来
+
+
+
+	@Component, @Repository, @Service, @Controller
+	@Required
+	@Autowired
+	@Qualifier
+	@Resource
+
+
+什么是AOP及实现方式(个人理解为类似于配置文件的形式，修改一个模块的配置文件将使得程序中所有使用该模块的功能修改)
+	Aspect Oriented Programming的所写，以为：面向切面编程，通过预编译方式与运行期动态代理实现程序功能的统一维护的一种技术
+	//通过预编译和运行期动态代理（AOP两种实现方式）
+	//可以通过AOP来实现程序中的统一处理
+	主要功能是：日志记录，性能统计，安全控制，事务处理，异常处理等等
+实现方式
+	预编译：AspectJ
+	运行期动态代理（JDK动态代理、CGLib动态代理）：SpringAOP、JbossAOP
+
+AOP基本概念
+
+	切面（Aspect）				一个关注点的模块化，这个关注点可能会横切多个对象
+	连接点（Joinpoint）			程序执行过程中的某个特定的点
+	通知（Advice）				在切面的某个特定的连接点上执行的动作
+	切入点（Pointcut）			匹配连接点的断言，在AOP中通知和一个切入点表达式关联
+	引入（Introduction）		在不修改类代码的前提下，为类添加新的方法和属性
+	目标对象（Target Object）	被一个或者多个切面所通知的对象
+	AOP代理（AOP Proxy）		AOP框架创建的对象，用来实现切面契约（aspect contract）（包括通知方法执行等功能）
+	织入（Weaving）				把切面连接到其他的应用程序类型或者对象上，并创建一个被通知的对象，分为：编译时织入、类加载时织入、执行时织入
+
+	Advice的类型
+		前置通知（Before Advice）				在某连接点(join point)之前执行的通知，但不能阻止连接点前的执行(除非它抛出一个异常)
+		返回后通知（After returning advice）	在某连接点（join point）正常完成后执行的通知
+		抛出异常后通知（After throwing advice）	在方法抛出异常退出时执行的通知
+		后通知（After(finally)advice）			当某连接点退出的时候执行的通知（不论是正常返回还是异常退出）
+		环绕通知（Around Advice）				包围一个连接点（join point）的通知
+
+Spring中的AOP的用途
+	提供了声明式的企业服务，特别是EJB的替代服务的声明
+	允许用户定制自己的方面(切面)，已完成OOP(面向对象)与AOP(面向切面)的互补使用
+	OOP指实现一个功能的顺序，AOP是在各个功能之间横切的功能
+Spring的AOP实现
+	纯java实现，无需特殊的编译过程，不需要控制类加载器层次
+	目前只支持方法执行连接点（通知Spring Bean的方法执行）
+	不是为了提供最完整的AOP实现（尽管它非常强大）；而是侧重于提供一种AOP实现和Spring IoC容器之间的整合，用于帮助解决企业应用中的常见问题
+	Spring AOP不会与AspectJ竞争，从而提供综合却面的AOP解决方案
+	//Spring不会像AspectJ一样提供完整全面综合的解决方法，只是立足于Spring的基础上，结合Spring IoC提供的一种切实有用的AOP实现，解决Spring开发中遇到的常见问题
+
+有接口和无接口的Spring AOP实现区别
+	Spring AOP默认使用标准的JavaSE动态代理作为AOP，这时的任何接口（或者接口集）都可以被代理
+	Spring AOP中也可以使用CGLib代理（如果一个业务对象并没有实现一个接口）
+
+Schema-based AOP	基于文件配置的
+	Spring所有的切面和通知器都必须放在一个<aop:config>内（可以配置包含多个<aop:config>元素）
+	每一个<aop:config>可以包含pointcut，advisor和aspect元素（它们必须按照这个顺序进行声明）
+	<aop:config>风格的配置大量使用了Spring的自动代理机制
+	<aop:config>
+		<aop:aspect id="myAspect" ref="aBean">
+			...
+		</aop:aspect>
+	</aop:config>
+	<bean id="aBean" class="...">
+		...
+	</bean>
+
+	在AOP中通知Advice和一个切入点表达式关联，本节课就来看一下切入点表达式
+	execution(public * *(..))		切入点为执行所有public方法时
+	execution(* set*(..))			切入点为执行所有set开始的方法时
+	execution(* com.xyz.service.AccountService.*(..))		切入点为执行AccountService类中的所有方法时
+	execution(* com.xyz.service..(..))		切入点为执行com.xyz.service包下的所有方法时
+	execution(* com.xyz.service...(..))		切入点为执行com.xyz.service包及其子包下的所有方法时
+	within(com.xyz.service.*)				(only in Spring AOP)
+	within(com.xyz.service..*)				(only in Spring AOP) within用于匹配指定类型内的方法执行
+	this(com.xyz.service.AccountsService)	(only in Spring AOP) this用于匹配当前AOP代理对象类型的执行方法
+	target(com.xyz.service.AccountService)	(only in Spring AOP) target用于匹配当前目标对象类型的执行方法
+	args(java.io.Serializable)				(only in Spring AOP) args用于匹配当前执行的方法传入参数为指定类型的执行方法
+	bean(tradeService)						(only in Spring AOP)
+	bean(*Service)							(only in Spring AOP)
+	<aop:config>
+		//在执行com.xyz.myapp.service包下面的所有类的任何类型方法的时候
+		<aop:pointcut id="businessService" expression="execution(* com.xyz.myapp.service..(..))" />
+
+		//只执行SystemArchitecture这个类的businessService()的时候
+		<aop:pointcut id="businessService" expression="com.xyz.myapp.SystemArchitecture.businessService()" />
+
+		//完整的配置形式
+		<aop:aspect id="myAspect" ref="aBean">
+			<aop:pointcut id="businessService" expression="execution(* com.xyz.myapp.service..(..))"/>
+		</aop:aspect>
+	</aop:connfig>
+
+Spring AOP API
+AspectJ		独立的AOP实现方式
+
