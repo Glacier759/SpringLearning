@@ -1,5 +1,6 @@
 package com.glacier.spring.test.aop;
 
+import com.glacier.spring.aop.schema.advice.Fit;
 import com.glacier.spring.aop.schema.advice.biz.AspectBiz;
 import com.glacier.spring.test.UnitTestBase;
 import org.junit.Test;
@@ -29,6 +30,12 @@ public class TestAOPSchemaAdivce extends UnitTestBase {
     public void testInit() {
         AspectBiz biz = super.getBean("aspectBiz");
         biz.init("glacierService", 3);
+    }
+
+    @Test
+    public void testFit() {
+        Fit fit = (Fit)super.getBean("aspectBiz");
+        fit.filter();
     }
 
 }
