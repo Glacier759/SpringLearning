@@ -25,4 +25,10 @@ public class TestAOPSchemaAdivce extends UnitTestBase {
         biz.biz();
     }
 
+    @Test
+    public void testInit() {
+        AspectBiz biz = super.getBean("aspectBiz");
+        biz.init("glacierService", 3);
+    }
+
 }

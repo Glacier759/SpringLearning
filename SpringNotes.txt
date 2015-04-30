@@ -373,14 +373,89 @@ Schema-based AOP	基于文件配置的
 	</aop:connfig>
 
 Advice
-	Before advice
-	<aop:aspect id="beforeExample ref="aBean"">
-		<aop:before pointcut-ref="dataAccessOperation" method="doAccessCheck" />
-	</aop:aspect>
+	【Before advice】
+		<aop:aspect id="beforeExample ref="aBean"">
+			<aop:before pointcut-ref="dataAccessOperation" method="doAccessCheck" />
+		</aop:aspect>
 
-	<aop:aspect id="beforeExample ref="aBean"">
-		<aop:before pointcut="execution(* com.xyz.myapp.dao..(..))" method="doAccessCheck" />
-	</aop:aspect>
+		<aop:aspect id="beforeExample ref="aBean"">
+			<aop:before pointcut="execution(* com.xyz.myapp.dao..(..))" method="doAccessCheck" />
+		</aop:aspect>
+		（个人理解前置通知为在执行满足指定条件的方法之前执行的动作）
+	
+	【After returing advice】
+		<aop:aspect id="afterReturningExample" ref="aBean">
+			<aop:after-returing pointcut-ref="dataAccessOperation" method="doAccessCheck"/>
+		</aop:aspect>
+
+		<aop:aspect id="afterReturningExample" ref="aBean">
+			//限制返回值为retVal
+			<aop:after-returing pointcut-ref="dataAccessOperation" returning="retVal" method="doAccessCheck"/>
+		</aop:aspect>
+		（在执行完指定的方法之后做某些操作，方法返回之后）
+
+	【After throwing advice】
+		<aop:aspect id="afterThrowingExample" ref="aBean">
+			<aop:after-throwing pointcut-ref="dataAccessOperation" method="doRecoveryActions"/>
+		</aop:aspect>
+
+		<aop:aspect id="afterThrowingExample" ref="aBean">
+			//throwing属性来指定可被传递的异常参数的名称
+			<aop:after-throwing pointcut-ref="dataAccessOperation" throwing="dataAccessEx" method="doRecoveryAction">
+		</aop:aspect>
+		（在异常抛出后才会被调用）
+
+	【After (finally) advice】
+		<aop:aspect id="afterFinallyExample" ref="aBean">
+			<aop:after pointcut-ref="dataAccessOperation" method="doReleaseLock"/>
+		</aop:aspect>
+		（在方法结束前的最后一次执行任务，抛出异常同样会执行，无论方法是否正常结束）
+	
+	【Around advice】(环绕通知)
+		//通知方法的第一个参数必须是ProceedingJoinPoint类型
+		<aop:aspect id="aroundExample" ref="aBean">
+			<aop:around pointcut-ref="businessService" method="doBasicProfiling"/>
+		</aop:aspect>
+
+		public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
+			//	start stopwatch
+			Object retVal = pjp.preceed();
+			//	stop stopwatch
+			return retVal;
+		}
+		（环绕在需要执行的方法上，通过pjp.preceed()来执行定义的方法体）
+
+	【Advice parameters】(带参数的环绕通知)
+		public interface FooService {
+			Foo getFoo(String name, int age);
+		}
+		public class DefaultFooService implements FooService {
+			public Foo getFoo(String name, int age) {
+				return new Foo(name, age);
+			}
+		}
+
+		public class SimpleProfiler {
+			//ProceedingJoinPoint call为环绕通知的一个方法的参数
+			//即这是某个环绕通知指定的方法，后面是其他的参数
+			public Object profile(ProceedingJoinPoint call, String name, int age) throws Throwable {
+				StopWatch clock = new StopWatch("Profiling for " + name + " and " + age);
+				try {
+					clock.start(call.toShortString());
+					return call.proceed();
+				} finally {
+					clock.stop();
+					System.out.println(clock.prettyPrint());
+				}
+			}
+		}
+
+		<aop:aspect ref="profiler">
+			<aop:pointcut id="theExecutionOfSomFooServiceMethod"
+																//指定参数类型 and 参数名称，切入点只匹配这种情况
+				expression="execution(* x.y.service.FooService.getFoo(String,int)) and args(name, age)"/>
+			<aop:around pointcut-ref="theExcutionOfSomeFooServiceMethod" method="profile"/>
+		</aop:aspect>
 
 Spring AOP API
 AspectJ		独立的AOP实现方式
