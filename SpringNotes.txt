@@ -346,6 +346,7 @@ Schema-based AOP	基于文件配置的
 		...
 	</bean>
 
+Pointcut
 	在AOP中通知Advice和一个切入点表达式关联，本节课就来看一下切入点表达式
 	execution(public * *(..))		切入点为执行所有public方法时
 	execution(* set*(..))			切入点为执行所有set开始的方法时
@@ -480,6 +481,17 @@ Advisors
 	切面自身通过一个bean表示，并且必须是实现某个advice接口，同时，advisor也可以很好的利用AspectJ的切入点表达式
 	Spring通过配置文件中<aop:advisor>元素支持，advisor实际使用中，大多数情况下它会和transactional advice配合使用
 	为了定义一个advisor的优先级以便让advice可以有序，可以使用order属性来定义advisor的顺序
+	<aop:config>
+		<aop:pointcut id="businessService" expression="execution(* com.xyz.myapp.service..(..))"/>
+		<aop:advisor pointcut-ref="businessService" advice-ref="tx-advice"/>
+	</aop:config>
+	//tx:advice是一个对于事务相关的声明
+	<tx:advice id="ex-advice">
+		<ex:attributes>
+			<tx:method name="*" propagation="REQUIED"/>
+		</ex:attributes>
+	</tx:advice>
+
 
 
 Spring AOP API
